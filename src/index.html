@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Shortcut Master</title>
+  <link rel="stylesheet" href="../styles/index.css" />
+
+</head>
+
+<body>
+  <div class="topNav">
+    <div class="appearanceSelector">
+      <img src="../icons/appearence.png" alt="Appearence">
+      <p>Theme</p>
+    </div>
+    <div class="settingsSelector">
+      <img src="../icons/settings.png" alt="Settings">
+      <p>Settings</p>
+    </div>
+  </div>
+
+  <div class="appearanceContainer">
+
+    <!-- <h2 class="sectionTitle">Keyboard Colors</h2>
+    <div class="keyboardColorContainer">
+      <div class="optionContainer">
+        C1: <input type="color" name="c1" id="c1">
+      </div>
+      <div class="optionContainer">
+        C2: <input type="color" name="c2" id="c2">
+      </div>
+      <div class="optionContainer">
+        C3: <input type="color" name="c3" id="c3">
+      </div>
+    </div>
+
+
+
+    <h2 class="sectionTitle">Keyboard Effects</h2>
+    <div class="keyboardEffectsContainer">
+      <div class="optionContainer">
+        #:
+        <select name="effect" id="effectSelect">
+          <option value="1">Effect 1</option>
+          <option value="2">Effect 2</option>
+          <option value="3">Effect 3</option>
+        </select>
+      </div>
+      <div class="optionContainer">
+        <img src="../icons/speed.png" alt="Speed">
+        <input type="number" name="speed" id="speedInput">
+      </div>
+      <div class="optionContainer">
+        <img src="../icons/reactivity.png" alt="Speed">
+        <input type="checkbox" name="reactivity" id="reactivityCheckbox">
+      </div>
+    </div> -->
+
+
+
+    <h2 class="sectionTitle">Pop-ups</h2>
+    <div class="popupsContainer">
+      <div class="optionContainer">
+        <img src="../icons/location.png" alt="location">
+        <select name="location" id="locationSelect">
+          <option value="topLeft">Top Left</option>
+          <option value="topCenter">Top Center</option>
+          <option value="topRight">Top Right</option>
+          <option value="middleLeft">Middle Left</option>
+          <option value="middleCenter">Center</option>
+          <option value="middleRight">Middle Right</option>
+          <option value="bottomLeft">Bottom Left</option>
+          <option value="bottomCenter">Bottom Center</option>
+          <option value="bottomRight">Bottom Right</option>
+        </select>
+      </div>
+      <div class="optionContainer">
+        <img src="../icons/size.png" alt="Size">
+        <input type="number" name="size" id="sizeInput" value="100">
+      </div>
+      <div class="optionContainer">
+        <img src="../icons/timer.png" alt="Duration">
+        <input type="number" name="duration" id="durationInput" value="2">
+      </div>
+      <div class="optionContainer">
+        <img src="../icons/text.png" alt="Text color">
+        <input type="color" name="textColor" id="textColorInput" value="#7f32d1">
+      </div>
+      <div class="optionContainer">
+        <img src="../icons/background.png" alt="Duration">
+        <input type="color" name="backgroundColor" id="backgroundColorInput" value="#311352">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="settingsContainer">
+    <div class="optionContainer">
+      <label for="popupEnable">Popups: </label>
+      <input type="checkbox" name="popoupEnable" id="popupEnableCheckbox">
+    </div>
+    <div class="optionContainer">
+      <label for="autostartEnable">Autostart: </label>
+      <input type="checkbox" name="autostartEnable" id="autostartEnableChockbox">
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+
+</html>

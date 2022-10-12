@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Shortcut Master</title>
+  <link rel="stylesheet" href="../styles/index.css" />
+</head>
+
+<body>
+  <!-- MAIN MENU  -->
+  <div class="mainMenuContainer">
+    <button class="mainMenuButton">Personalize</button>
+    <button class="mainMenuButton">Settings</button>
+    <button class="mainMenuButton">Statistics</button>
+  </div>
+
+  <button class="logButton">Log popup</button>
+  <button class="homeButton">Home</button>
+  <!-- PERSONALIZATION -->
+  <div class="personalizationContainer">
+    
+    <div class="colorPalletteContainer">
+      <h2>Color pallette</h2>
+      <div class="colorPicker">
+        <label for="picker1">Color 1: </label>
+        <input id="picker1" type="color" />
+      </div>
+      <div class="colorPicker">
+        <label for="picker2">Color 2: </label>
+        <input id="picker2" type="color" />
+      </div>
+      <div class="colorPicker">
+        <label for="picker3">Color 3: </label>
+        <input id="picker3" type="color" />
+      </div>
+    </div>
+
+    <div class="effectPickerContainer">
+      <h2>Effects</h2>
+
+      <label for="effects">Effect #: </label>
+      <select class="effectsSelector" id="effects">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+
+      <label for="speed">Speed: </label>
+      <input id="speed" type="range" min="1" max="100" />
+
+      <label>Reactivity: </label>
+      <input id="reactivity" type="checkbox" />
+    </div>
+
+    <div class="popupPersonalizationContainer">
+      <h2>Popups</h2>
+      <p>TODO! <br /> Popup personalization</p>
+    </div>
+  </div>
+
+
+  <!-- SETTINGS  -->
+  <div class="settingsContainer">
+    <label for="popup">Use Popups: </label>
+    <input id="popup" type="checkbox" />
+
+    <label for="soundEffects">Sound Effects: </label>
+    <input id="soundEffects" type="checkbox" />
+
+    <label for="autostart">Autostart: </label>
+    <input id="autostart" type="checkbox" />
+
+    <label for="statShare">Share statistics: </label>
+    <input id="statShare" type="checkbox" />
+  </div>
+
+<!-- TODO statistics -->
+
+
+
+  <script src="renderer.js"></script>
+</body>
+
+</html>

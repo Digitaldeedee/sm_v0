@@ -1,0 +1,39 @@
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: auto;
+  height: 100%;
+}
+
+
+
+/* MAIN MENU  */
+.mainMenuContainer{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.mainMenuButton{
+  height: fit-content;
+  height: 20%;
+  width: 20%;
+  background-color: blueviolet;
+  border: none;
+  border-radius: 0;
+  color: white;
+  font-family: fantasy;
+  font-size: 2em;
+}
+
+.mainMenuButton:hover{
+  background-color:mediumslateblue;
+}
+
+
+
+
+
+

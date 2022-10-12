@@ -1,0 +1,139 @@
+/* @font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Ubuntu'), url(../fonts/Ubuntu-Regular.ttf) format('tff');
+} */
+
+body{
+    padding: 0;
+    margin: 0; 
+    background-color: rgb(30, 30, 30);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+body *{ 
+    padding: 0; 
+    margin: 0; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #888888;
+}
+
+
+/* ----------------TOP NAVIGATION BUTTONS------------- */
+.topNav{
+    height: 120px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.topNav img{
+    height: 50px;
+    width: 50px;
+}
+.topNav div{
+    width: 70px;
+}
+.appearanceSelector, .settingsSelector{
+    border: #888 solid 3px;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+.appearanceSelector:hover{
+    background-color: rgb(70, 70, 70);
+    border: #888 solid 3px;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.settingsSelector:hover{
+    background-color: rgb(70, 70, 70);
+    border: #888 solid 3px;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+
+/* ------------------------APPEARENCE CONTAINER--------------------- */
+.appearanceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* -------------------------SETTINGS CONTAINER----------------------- */
+
+
+/* ------------------------OPTION CONTAINER------------------------- */
+.optionContainer{
+    display: flex;
+    align-items: center;
+}
+.optionContainer img{
+    height: 1.5em;
+    width: 1.5em;
+}
+.optionContainer input:not(#effectSelect, #locationSelect){
+    width: 3em;
+}
+.optionContainer input, select{
+    margin-left: 7px;
+    margin-right: 7px;
+}
+/* ----------------------KEYBOARD COLOR SECTION------------------- */
+.keyboardColorContainer{
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    justify-content: space-evenly;
+}
+
+/* ------------------------KEYBOARD EFFECTS SECTION------------------ */
+.keyboardEffectsContainer{
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    justify-content: space-evenly;
+}
+
+/* --------------------------POPUPS CONTAINER----------------------- */
+.popupsContainer{
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.popupsContainer .optionContainer{
+    margin: 10px 20px 10px 20px;
+}
+
+
+/* -------------------SETTINGS CONTAINER------------------- */
+.settingsContainer{
+    display: none;
+    width: 100%;
+    padding: 20px;
+    align-items: center;
+    flex-direction: column;
+}
+.settingsContainer .optionContainer{
+    margin: 10px;
+}
