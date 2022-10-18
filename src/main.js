@@ -2,9 +2,18 @@ const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
 const fs = require("fs");
 const express = require("express");
-const server = express()
+const server1 = express()
+const server2 = express()
+const server3 = express()
 const convert = require("xml-js")
+const os = require('os');
+// const ipc = require('node-ipc');
 
+
+//OS variables
+const isMac = os.platform() === "darwin";
+const isWindows = os.platform() === "win32";
+const isLinux = os.platform() === "linux";
 //Important  variables
 let commandArray; //array command events
 let selectArray; // arrray of select  events
@@ -32,6 +41,7 @@ let screenY;
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+let mainW;
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -44,6 +54,10 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+  mainWindow.setAlwaysOnTop(false);
+  if (isMac) {
+    mainW = mainWindow;
+  }
   mainWindow.removeMenu();
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   // mainWindow.webContents.openDevTools();
@@ -64,15 +78,17 @@ app.on('activate', () => {
 });
 
 //Server for plugin
-server.listen(3001)
-server.post("/", (req, res) => {
+server1.listen(3001)
+server1.post("/", (req, res) => {
   let data = ""
   req.on("data", (info) => {
     data += info;
   })
   req.on("end", () => {
     let obj = JSON.parse(data)
+    console.log(obj);
     invokeShortcut(obj)
+    res.end();
   })
 })
 
@@ -100,17 +116,17 @@ app.whenReady().then(() => {
 
 
 function invokeShortcut(obj) {
+  // console.log(obj);
   if (obj.event == '"select"') {
     let tool = JSON.parse(obj.descriptor)._target[0]._ref;
     let select = selectArray.find(elem => elem.name == tool)
     let shortcutKey = select ? select.shortcutKey : undefined;
-    console.log(shortcutKey);
+    // console.log(shortcutKey);
     showPopup(obj.event, shortcutKey)
   } else if (obj.event == '"invokeCommand"') {
     let command = JSON.parse(obj.descriptor).commandID;
     let shortcutKeys = commandArray.find(elem => elem.command == command).shortcutKeys;
     // shortcutKeys.map(elem => {console.log(elem);})
-    // TODO - send Popup
     showPopup(obj.event, shortcutKeys)
   }
 }
@@ -153,18 +169,25 @@ function showPopup(type, shortcut) {
     </body>
     </html>`;
     let popupSide = Math.round(100 * (popupScale / 100));
-    const popup = new BrowserWindow({
+    let popup = new BrowserWindow({
       frame: false,
       width: popupSide,
       height: popupSide,
       resizable: false,
+      show: false
     });
     popup.setPosition(popupX - Math.round(popupSide / 2), popupY - Math.round(popupSide / 2));
     popup.removeMenu();
     popup.loadURL(`data:text/html;charset=utf-8,${htmlContent}`);
+    popup.once('ready-to-show', () => {
+      popup.show();
+    })
+    if (isMac) {
+      mainW.minimize();
+    }
     setTimeout(() => {
       popup.close();
-
+      popup = undefined;
     }, popupDuration * 1000)
   } else if (type == '"invokeCommand"' && shortcut) {
     console.log(shortcut);
@@ -222,21 +245,25 @@ function showPopup(type, shortcut) {
       width: popupWidth,
       height: popupHeight,
       resizable: false,
+      show: false
     });
     let offset = 0;
-    if(popupLocation.includes("Center")){
+    if (popupLocation.includes("Center")) {
       offset = popupWidth / 2;
-    }else if(popupLocation.includes("Right")){
+    } else if (popupLocation.includes("Right")) {
       offset = popupWidth;
     }
-    console.log(offset);
+    // console.log(offset);
     popup.setPosition(popupX - offset, popupY - Math.round(popupHeight / 2));
     popup.removeMenu();
     popup.loadURL(`data:text/html;charset=utf-8,${htmlContent}`);
+    popup.once('ready-to-show', () => {
+      popup.show();
+    })
     // console.log(htmlContent);
     setTimeout(() => {
       popup.close();
-
+      popup = undefined;
     }, popupDuration * 1000)
     // popup.webContents.openDevTools();
   }
@@ -300,7 +327,9 @@ async function getActionArray(event) {
     return unique;
   } else if (event == "select") {
     let res;
-    let txt = await fs.promises.readFile("C:\\Program Files\\Adobe\\Adobe Photoshop 2022\\Locales\\en_US\\Support Files\\Shortcuts\\Win\\Default Keyboard Shortcuts.kys", "utf8")
+    // let txt = await fs.promises.readFile("C:\\Program Files\\Adobe\\Adobe Photoshop 2022\\Locales\\en_US\\Support Files\\Shortcuts\\Win\\Default Keyboard Shortcuts.kys", "utf8")
+    let txt = await fs.promises.readFile("/Applications/Adobe Photoshop 2022/Locales/en_US/Support Files/Shortcuts/Mac/Default Keyboard Shortcuts.kys", "utf8")
+
     let resJSON = convert.xml2json(txt, { compact: true, spaces: 4 });
     res = await JSON.parse(resJSON)["photoshop-keyboard-shortcuts"]
     res = res.tool.filter(item => item._text)
@@ -451,6 +480,12 @@ async function getActionArray(event) {
               shortcutKey: item._text
             }
             break;
+          case "Frame Tool":
+            resItem = {
+              name: "framedGroupTool",
+              shortcutKey: item._text
+            }
+            break;
           default:
             resItem = {
               name: camelize(item._attributes.name),
@@ -468,6 +503,10 @@ async function getActionArray(event) {
       name: "triangleTool",
       shortcutKey: "U"
     })
+    // res.push({
+      // name: "framedGroupTool",
+      // shortcutKey: "K"
+    // })
     return res;
   }
 }
@@ -530,12 +569,12 @@ function hexToRGB(h) {
     g = "0x" + h[2] + h[2];
     b = "0x" + h[3] + h[3];
 
-  // 6 digits
+    // 6 digits
   } else if (h.length == 7) {
     r = "0x" + h[1] + h[2];
     g = "0x" + h[3] + h[4];
     b = "0x" + h[5] + h[6];
   }
-  
-  return "rgb("+ +r + "," + +g + "," + +b + ")";
+
+  return "rgb(" + +r + "," + +g + "," + +b + ")";
 }
